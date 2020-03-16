@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import styled from 'styled-components'
+import NavBar from './NavBar';
+import UnsplashSearchForm from './UnsplashSearchForm'
+import MainContainer from './MainContainer'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+	const [ results, setResults ] = useState([])
+	const [ displayResultGrid, setDisplayResultGrid ] = useState(false)
+
+	const displayResults = items => {
+		setResults(items)
+	}
+
+  	return (
+		<Wrapper>
+			<NavBar />
+			<h1>Unsplash Search Bar!</h1>
+			<UnsplashSearchForm displayResults={displayResults}/>
+	  		{ results.length === 0 ? null : <MainContainer results={results} /> }
+		</Wrapper>
+	)
 }
 
 export default App;
+	
+const Wrapper = styled.div`
+	text-align: center;
+	margin-top: 45px;
+	margin-bottom: 45px;
+`
+
